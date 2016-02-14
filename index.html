@@ -9,6 +9,8 @@ head_payload: |
 <head>
     <title>Mapzai BETA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -44,8 +46,6 @@ head_payload: |
 {% include partials/navbar.html %}
   <div id="map"></div>
 
-<!--        <div id="map" class="sidebar-map"></div> -->
-
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="/js/leaflet-sidebar.js"></script>
     <script src="/js/leaflet.draw.js"></script>
@@ -55,8 +55,7 @@ head_payload: |
         //var map = L.map('map');
         //inserting drawControl for leaflet draw plugin
         var map = L.map('map');
-        var sampleGeoJsonFile = '/data/hk/hk-sample.geojson'
-        
+
         map.setView([22.278816, 114.165076], 12);
                      
         L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -100,10 +99,26 @@ head_payload: |
             drawnItems.addLayer(layer);
         });
 
-        var geojsonLayer = new L.GeoJSON.AJAX(sampleGeoJsonFile);
+        var sampleGeoJsonFile = '/data/hk/hk-schools-sample.geojson'
+        var geoJsonImport = new L.GeoJSON.AJAX(sampleGeoJsonFile, {
+            onEachFeature: function (feature, layer) {
+                drawnItems.addLayer(layer);
+            }
+        });
+        //console.log(geoJsonImport);
         //geojsonLayer.addTo(map);  // the original code to display the layer
-        drawnItems.addLayer(geojsonLayer); // modified code to add this layer to be editable - testing
+        /*
+        L.geoJson(geoJsonImport, {
+            onEachFeature: function (feature, layer) {
+                featureGroup.addLayer(layer);
+            }
+        }); */
+        
+    
+        drawnItems.addLayer(geoJsonImport); // modified code to add this layer to be editable - testing
 
+        // Dirty Debugging - part 2
+        console.log(drawnItems);
 
     </script>
 </body>
