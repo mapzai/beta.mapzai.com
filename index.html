@@ -49,11 +49,13 @@ head_payload: |
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="/js/leaflet-sidebar.js"></script>
     <script src="/js/leaflet.draw.js"></script>
+    <script src="/js/leaflet.ajax/leaflet.ajax.min.js"></script>
 
     <script>
         //var map = L.map('map');
         //inserting drawControl for leaflet draw plugin
         var map = L.map('map');
+        var sampleGeoJsonFile = '/data/hk/hk-sample.geojson'
         
         map.setView([22.278816, 114.165076], 12);
                      
@@ -97,6 +99,12 @@ head_payload: |
             // Do whatever else you need to. (save to db, add to map etc)
             drawnItems.addLayer(layer);
         });
+
+        var geojsonLayer = new L.GeoJSON.AJAX(sampleGeoJsonFile);
+        //geojsonLayer.addTo(map);  // the original code to display the layer
+        drawnItems.addLayer(geojsonLayer); // modified code to add this layer to be editable - testing
+
+
     </script>
 </body>
 </html>
