@@ -1,0 +1,30 @@
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+body {
+  padding-top: 50px;
+}
+nav {
+    top: 0;
+    left: 0;
+}
+
+#map {
+    overflow: hidden;
+    height: 100%;
+    width: auto;
+}
+
+.dropTarget {
+	position: relative;
+	margin: 1em 1em 0 0;
+	z-index: 200;
+	pointer-events: visible;
+}
+
+.dropTarget:hover {
+border: 1px dashed #454545;
+}

@@ -1,8 +1,5 @@
 ---
-head_payload: |
- <script src="/css/OSMBuildings/OSMBuildings.css"></script>
- <script src="/js/OSMBuildings/OSMBuildings.js"></script>
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> 
+
 ---
 <!DOCTYPE html>
 <html>
@@ -14,32 +11,12 @@ head_payload: |
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 
-    <link rel="stylesheet" href="/css/leaflet-sidebar.css.old" />
+    <link rel="stylesheet" href="/css/leaflet-sidebar.css" />
     <link rel="stylesheet" href="/css/leaflet.draw.css" />
 
-    <style>
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-        body {
-          padding-top: 50px;
-        }
-        nav {
-            top: 0;
-            left: 0;
-        }
-
-        #map {
-            overflow: hidden;
-            height: 100%;
-            width: auto;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/mapzai.css" />
 </head>
 <body>
 
@@ -50,76 +27,7 @@ head_payload: |
     <script src="/js/leaflet-sidebar.js"></script>
     <script src="/js/leaflet.draw.js"></script>
     <script src="/js/leaflet.ajax/leaflet.ajax.min.js"></script>
-
-    <script>
-        //var map = L.map('map');
-        //inserting drawControl for leaflet draw plugin
-        var map = L.map('map');
-
-        map.setView([22.278816, 114.165076], 12);
-                     
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var marker = L.marker([51.2, 7]).addTo(map);
-
-        //var sidebar = L.control.sidebar('sidebar').addTo(map);
-
-        // Initialise the FeatureGroup to store editable layers
-        var drawnItems = new L.FeatureGroup();
-        map.addLayer(drawnItems);
-
-        // Initialise the draw control and pass it the FeatureGroup of editable layers
-        var drawControl = new L.Control.Draw({
-            position: 'topleft',
-            draw: {
-                circle: {
-                    shapeOptions: {
-                        color: '#202C52',
-                        opacity: 0.3,
-                    }}
-            },
-            edit: {
-                featureGroup: drawnItems
-            }
-        });
-        map.addControl(drawControl);
-
-        map.on('draw:created', function (e) {
-            var type = e.layerType,
-                layer = e.layer;
-
-            if (type === 'marker') {
-                // Do marker specific actions
-            }
-
-            // Do whatever else you need to. (save to db, add to map etc)
-            drawnItems.addLayer(layer);
-        });
-
-        var sampleGeoJsonFile = '/data/hk/hk-schools-sample.geojson'
-        var geoJsonImport = new L.GeoJSON.AJAX(sampleGeoJsonFile, {
-            onEachFeature: function (feature, layer) {
-                drawnItems.addLayer(layer);
-            }
-        });
-        //console.log(geoJsonImport);
-        //geojsonLayer.addTo(map);  // the original code to display the layer
-        /*
-        L.geoJson(geoJsonImport, {
-            onEachFeature: function (feature, layer) {
-                featureGroup.addLayer(layer);
-            }
-        }); */
-        
-    
-        drawnItems.addLayer(geoJsonImport); // modified code to add this layer to be editable - testing
-
-        // Dirty Debugging - part 2
-        console.log(drawnItems);
-
-    </script>
+    <script src="/js/mapzai.js"></script>
+    <script src="/js/mapzai.dnd.js"></script>
 </body>
 </html>
