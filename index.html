@@ -1,34 +1,55 @@
----
-
----
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Mapzai BETA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mapzai React app!</title>
+    <style type="text/css">
+        .leaflet-container {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/react/0.14.0-rc1/react.js"></script>
+    <script src="https://cdn.jsdelivr.net/react/0.14.0-rc1/react-dom.js"></script>
+    <script src="https://npmcdn.com/react-leaflet/dist/react-leaflet.min.js"></script>
+    <script>
+        const React = window.React;
+        const { Map, TileLayer, Marker, Popup } = window.ReactLeaflet;
 
-    <link rel="stylesheet" href="/css/leaflet-sidebar.css" />
-    <link rel="stylesheet" href="/css/leaflet.draw.css" />
+        class SimpleExample extends React.Component {
+          constructor() {
+            super();
+            this.state = {
+              lat: 51.505,
+              lng: -0.09,
+              zoom: 13,
+            };
+          }
 
-    <link rel="stylesheet" href="/css/mapzai.css" />
-    {% include partials/google.apps.html %}
-</head>
-<body>
+          render() {
+            const position = [this.state.lat, this.state.lng];
+            return (
+              <Map center={position} zoom={this.state.zoom}>
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                <Marker position={position}>
+                  <Popup>
+                    <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
+                  </Popup>
+                </Marker>
+              </Map>
+            );
+          }
+        }
 
-{% include partials/navbar.html %}
-  <div id="map"></div>
+        window.ReactDOM.render(<SimpleExample />, document.getElementById('container'));
 
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <script src="/js/leaflet-sidebar.js"></script>
-    <script src="/js/leaflet.draw.js"></script>
-    <script src="/js/leaflet.ajax/leaflet.ajax.min.js"></script>
-    <script src="/js/mapzai.js"></script>
-    <script src="/js/mapzai.dnd.js"></script>
-</body>
+    </script>
+  </body>
 </html>
