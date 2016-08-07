@@ -22,7 +22,15 @@ dropJSON(
         
         // dropped - do something with data
         console.log(data);
-        var droppedGeoJson = drawnItems.addLayer(L.geoJson(data));
+
+        // Modifying code to add popups
+        var importedDataLayer =  L.geoJson(data, {
+            onEachFeature: function (feature, layer) {
+                onEachFeature(feature, layer);
+            }
+        });
+
+        var droppedGeoJson = drawnItems.addLayer(importedDataLayer);
 
         var featureGroupBounds = droppedGeoJson.getBounds()
         

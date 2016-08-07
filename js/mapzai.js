@@ -1,6 +1,7 @@
 /********************************
 *   MAPZAI
-*   All rights reserved
+* 
+*   Coopyright 2016 - All rights reserved
 ********************************/
 
 //inserting drawControl for leaflet draw plugin
@@ -59,6 +60,8 @@ var sampleGeoJsonFile = '/data/hk/hk-schools-sample.geojson'
 var geoJsonImport = new L.GeoJSON.AJAX(sampleGeoJsonFile, {
     onEachFeature: function (feature, layer) {
         drawnItems.addLayer(layer);
+        onEachFeature(feature, layer);
+
     }
 });
 
@@ -67,6 +70,22 @@ drawnItems.addLayer(geoJsonImport); // modified code to add this layer to be edi
 function clearLayer(layer) {
     layer.clearLayers();
 };
+
+
+/*
+ Sample code taken from leaflet examples (http://leafletjs.com/examples/geojson-example.html)
+*/
+function onEachFeature(feature, layer) {
+    var popupContent = "<strong>Mapzai popup</strong><br />Feature Type: " +
+            feature.geometry.type;
+
+    if (feature.properties && feature.properties.popupContent) {
+        popupContent += feature.properties.popupContent;
+    }
+
+    layer.bindPopup(popupContent);
+}
+
 
 var clearLayers = document.getElementById('clearLayers');
 clearLayers.addEventListener('click', function() {
