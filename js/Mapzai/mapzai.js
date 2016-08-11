@@ -2,6 +2,7 @@
 *   MAPZAI
 * 
 *   Coopyright 2016 - All rights reserved
+*   Mapzai.com
 ********************************/
 
 //inserting drawControl for leaflet draw plugin
@@ -79,10 +80,15 @@ function onEachFeature(feature, layer) {
     var popupContent = "<strong>Mapzai popup</strong><br />Feature Type: " +
             feature.geometry.type;
 
-    if (feature.properties && feature.properties.popupContent) {
-        popupContent += feature.properties.popupContent;
+    if (feature.id) {
+        popupContent = "<strong>" + feature.geometry.type + "</strong><br/>" +
+            "id: <a target=\"_blank\" href=\"http://www.openstreetmap.org/" + feature.id + "\">" + feature.id + "</a>";
     }
 
+/*    if (feature.properties && feature.properties.popupContent) {
+        popupContent += feature.properties.popupContent;
+    }
+*/
     layer.bindPopup(popupContent);
 }
 

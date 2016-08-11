@@ -12,6 +12,11 @@ nav {
     left: 0;
 }
 
+.navbar-brand .highlight {
+    color: #71c4e0;
+    font-weight: bold;
+}
+
 #map {
     overflow: hidden;
     height: 100%;
