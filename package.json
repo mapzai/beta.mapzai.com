@@ -1,0 +1,23 @@
+{
+  "name": "beta.mapzai.com",
+  "version": "1.0.0",
+  "description": "Beta Application",
+  "main": "index.js",
+  "dependencies": {
+    "leaflet": "^0.7.7",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-leaflet": "^0.12.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-mapzai:mapzai/beta.mapzai.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
