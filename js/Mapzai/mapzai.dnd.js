@@ -31,20 +31,7 @@ dropJSON(
         });
 
         var droppedGeoJson = drawnItems.addLayer(importedDataLayer);
-
-        var featureGroupBounds = droppedGeoJson.getBounds()
-        
+        var featureGroupBounds = droppedGeoJson.getBounds()        
         map.fitBounds(featureGroupBounds);
-
-/*
-        var dndImport = new L.GeoJSON.AJAX(data, {
-            onEachFeature: function (feature, layer) {
-                drawnItems.addLayer(layer);
-            }
-        });
-
-        drawnItems.addLayer(dndImport); // modified code to add this layer to be editable - testing
-        console.log(dndImport);
-*/
     }
 );
