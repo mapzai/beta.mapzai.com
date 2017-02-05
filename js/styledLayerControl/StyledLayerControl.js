@@ -5,6 +5,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         autoZIndex: true
     },
 
+
     initialize: function(baseLayers, groupedOverlays, options) {
         var i,
             j;
