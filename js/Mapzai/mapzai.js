@@ -121,7 +121,6 @@ var geoJsonImport = new L.GeoJSON.AJAX(sampleGeoJsonFile, {
     onEachFeature: function (feature, layer) {
         drawnItems.addLayer(layer);
         onEachFeature(feature, layer);
-
     }
 });
 
@@ -146,10 +145,21 @@ function onEachFeature(feature, layer) {
     var popupContent = "<strong>Mapzai popup</strong><br />Feature Type: " +
             feature.geometry.type;
 
+/*
     if (feature.id) {
         popupContent = "<strong>" + feature.geometry.type + "</strong><br/>" +
             "id: <a target=\"_blank\" href=\"http://www.openstreetmap.org/" + feature.id + "\">" + feature.id + "</a>";
     }
+*/  
+    popupContent = '<div class="popup-wrapper"><table class="table table-sm table-striped table-bordered">';
+    // Loop through object properties and output
+    for(var propt in feature.properties){
+        popupContent += '<tr><th>' + propt + '</th>';
+        popupContent += '<td>' + feature.properties[propt] + '</td></tr>';
+    }
+    popupContent += '</table></div>';
+
+    //console.log(feature.properties);
 
 /*    if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
@@ -166,11 +176,29 @@ clearLayers.addEventListener('click', function() {
     //alert('Cleared All Layers!');
 }, false);
 
+// Sidebar code
+var sidebar = L.control.sidebar('sidebar', {
+    closeButton: true,
+    position: 'left'
+});
+
+map.addControl(sidebar);
+setTimeout(function () {
+    sidebar.show();
+}, 500);
+
+// toggle sidebar view
+$(".sidebar-toggle").click(function(e) {
+    sidebar.toggle();
+});
+
+sidebar.toggle();
+
 // Create event binding for GoToMarkets
 $(".goToMarket").click(function(e) {
     market = $(this).attr('data-market');
     panToMarket(market);
-    //console.log(market);
+    console.log(market);
 });
 
 $(".loadData").click(function(e) {
@@ -189,4 +217,10 @@ $(".loadData").click(function(e) {
     var featureGroupBounds = geoJsonImport.getBounds();
     // map.fitBounds(featureGroupBounds);
     // Try to disable or grey-out the button after the layer has been loaded.
+    if(layerControl === false) {
+        layerControl = L.control.layers().addTo(map);
+    }
+    
+    layerControl.addOverlay(geoJsonImport, "Initial Data Layer");
+
 });

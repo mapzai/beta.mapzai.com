@@ -11,6 +11,10 @@ nav {
     top: 0;
     left: 0;
 }
+.popup-wrapper {
+    max-height: 300px;
+    overflow: auto;    
+}
 
 .navbar-brand .highlight {
     color: #71c4e0;
@@ -21,6 +25,7 @@ nav {
     overflow: hidden;
     height: 100%;
     width: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .dropTarget {
